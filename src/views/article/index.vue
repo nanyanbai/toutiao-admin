@@ -82,7 +82,13 @@
                 <el-table-column label="发布时间" prop="pubdate"></el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">
-                        <el-button type="primary" size="small" icon="el-icon-edit" circle></el-button>
+                        <el-button 
+                         type="primary" 
+                         size="small" 
+                         icon="el-icon-edit" 
+                         circle
+                         @click="$router.push('/publish?id='+ scope.row.id)"
+                        ></el-button>
                         <el-button type="danger" size="small" icon="el-icon-delete" circle @click="onDeleteArticleById(scope.row.id)"></el-button>
                     </template>
                 </el-table-column>

@@ -123,12 +123,15 @@ export default {
         min-width: 300px;
         padding: 30px 50px 10px;
         background-color: #fff;
+        border-radius: 4px;
         .login-head {
             display: flex;
             justify-content: center;
+            height: 55px;
+            margin-bottom: 20px;
             .logo {
                 width: 200px;
-                height: 57px;
+                height: 100%;
                 background: url('./logo.png') no-repeat;
                 background-size: contain;
             }

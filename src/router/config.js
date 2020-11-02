@@ -27,6 +27,21 @@ export default {
                     name: 'article',
                     component: () => import('@/views/article/')
                 },
+                {
+                    path: '/material',
+                    name: 'material',
+                    component: () => import('@/views/material/')
+                },
+                {
+                    path: '/publish',
+                    name: 'publish',
+                    component: () => import('@/views/publish/')
+                },
+                {
+                    path: '/comment',
+                    name: 'comment',
+                    component: () => import('@/views/comment/')
+                }
             ]
         }
     ],

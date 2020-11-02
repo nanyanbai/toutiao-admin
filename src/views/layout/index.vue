@@ -17,8 +17,8 @@
                             <i class="el-icon-arrow-down el-icon--right"></i>
                         </div>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>设置</el-dropdown-item>
-                            <el-dropdown-item @click.native="onLogout">退出</el-dropdown-item>
+                            <el-dropdown-item @click.native="onProfileSetting">个人中心</el-dropdown-item>
+                            <el-dropdown-item @click.native="onLogout">用户退出</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
@@ -29,22 +29,55 @@
                 <router-view />
             </el-main>
         </el-container>
+
+
+        <!--个人中心设置dialog-->
+        <el-dialog  title="个人设置" :visible.sync="userInfoVisible"   :modal-append-to-body="false" :close-on-click-modal="false">
+            <user-info v-if="userInfoVisible"  :userProfileInfo="userProfileInfo" />
+        </el-dialog>
+        <!--/个人中心设置dialog-->
+
     </el-container>
 </template>
 
 <script>
+import { getUserProfile } from '@/api/user'
 import { mapState } from 'vuex'
 import  AppAside from './components/aside'
+import UserInfo from '@/components/user-info/'
 import { removeItem } from '@/utils/storage'
+
 export default {
     name: 'LayoutIndex',
     components: {
-        AppAside
+        AppAside,
+        UserInfo
+    },
+    data () {
+        return {
+            userProfileInfo: {},
+            userInfoVisible: false, // 控制个人设置弹窗状态
+        }
     },
     computed: {
         ...mapState(['user'])
     },
+
+    created () {
+        this.loadUserProfile()
+    },
     methods: {
+        
+        async loadUserProfile () {
+            const { data } = await getUserProfile()
+            this.userProfileInfo = data.data
+        },
+
+       // 处理个人中心设置     
+       onProfileSetting () {
+          this.userInfoVisible = true
+       },     
+
         onLogout () {
             this.$confirm('确认退出吗？', '退出提示', {
                 confirmButtonText: '确定',
