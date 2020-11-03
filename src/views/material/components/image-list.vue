@@ -50,6 +50,11 @@
             />
         </div>
 
+        <!--
+            upload 组件本身就支持请求提交上传操作， 说白了使用它不用自己去发请求，它会自己发
+            请求方法：默认就是 POST
+            请求路径： action 必须是完整路径
+        -->
         <el-dialog
          title="上传素材"
          :visible.sync="dialogUploadVisible"
@@ -108,7 +113,7 @@ export default {
             const res = data.data.results
             res.forEach( img => {
                 // img 对象本来没有 loading 数据
-                // 我们这里收到的往里面添加该数据是用来控制每个收藏按钮的 loading 状态
+                // 我们这里手动的往里面添加该数据是用来控制每个收藏按钮的 loading 状态
                 img.loading = false
             })
             this.images =res

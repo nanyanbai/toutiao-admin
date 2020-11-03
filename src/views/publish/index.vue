@@ -19,26 +19,34 @@
           <el-tiptap v-model="article.content" :extensions="extensions" lang="zh"  height="400px" placeholder="请输入文章内容" />
         </el-form-item>
         <el-form-item label="封面">
-          <el-radio-group v-model="article.cover.type">
+          <el-radio-group v-model="article.cover.type"  @change="article.cover.images=[]">
             <el-radio :label="1">单图</el-radio>
             <el-radio :label="3">三图</el-radio>
             <el-radio :label="0">无图</el-radio>
             <el-radio :label="-1">自动</el-radio>
           </el-radio-group>
-          <template>
-            fdfdsfdsaf
-          </template>
+          <!-- 封面预留位置 -->
+           <div v-if="article.cover.type === 1 ">
+               <my-image v-model="article.cover.images[0]" />
+           </div>
+            <div v-if="article.cover.type === 3 ">
+                <my-image v-model="article.cover.images[0]" />
+                <my-image v-model="article.cover.images[1]" />
+                <my-image v-model="article.cover.images[2]" />
+            </div>
 
         </el-form-item>
         <el-form-item label="频道" prop="channel_id">
-          <el-select v-model="article.channel_id" placeholder="请选择文章频道">
-            <el-option
-             v-for="item in channels"
-             :key="item.id"
-             :label="item.name"
-             :value="item.id"
-            />
-          </el-select>
+            <!-- 这里使用全局组件 -->
+            <my-channel v-model="article.channel_id" />
+<!--          <el-select v-model="article.channel_id" placeholder="请选择文章频道">-->
+<!--            <el-option-->
+<!--             v-for="item in channels"-->
+<!--             :key="item.id"-->
+<!--             :label="item.name"-->
+<!--             :value="item.id"-->
+<!--            />-->
+<!--          </el-select>-->
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onPublish(false)">
@@ -76,9 +84,13 @@ import {
 } from 'element-tiptap'
 import 'element-tiptap/lib/index.css'
 import { getArticleChannels, addArticle, getArticle, updateArticle } from '@/api/article'
+import MyChannel from "../../components/my-channel/index";
+
+
 export default {
   name: 'PublishIndex',
   components: {
+      MyChannel,
     'el-tiptap': ElementTiptap
   },
   data () {
@@ -92,7 +104,7 @@ export default {
         },
         channel_id: null
       },
-      channels: [], // 文章频道列表
+      // channels: [], // 文章频道列表
       // 编辑器的 extensions
       // 它们将会按照你声明的顺序被添加到菜单栏和气泡菜单中
       extensions: [
@@ -155,16 +167,18 @@ export default {
     }
   },
   created () {
-    this.loadChannels()
+    // this.loadChannels()
     if (this.$route.query.id) {
       this.loadArticle()
     }
   },
   methods:　{
-    async loadChannels () {
-        const { data } = await getArticleChannels()
-        this.channels = data.data.channels
-    },
+
+    // 获取频道
+    // async loadChannels () {
+    //     const { data } = await getArticleChannels()
+    //     this.channels = data.data.channels
+    // },
 
     async onPublish (draft = false) {
       const articleId = this.$route.query.id

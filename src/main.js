@@ -9,6 +9,11 @@ import 'element-ui/lib/theme-chalk/index.css'
 // 导入字体图标
 import './assets/fonts/iconfont.css'
 
+// 使用自己的插件
+import plugin from '@/plugin/'
+Vue.use(plugin)
+
+
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false

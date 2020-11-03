@@ -33,7 +33,7 @@
 
         <!--个人中心设置dialog-->
         <el-dialog  title="个人设置" :visible.sync="userInfoVisible"   :modal-append-to-body="false" :close-on-click-modal="false">
-            <user-info v-if="userInfoVisible"  :userProfileInfo="userProfileInfo" />
+            <user-info v-if="userInfoVisible"  :userProfileInfo="userProfileInfo"  @closeUserProfileDialog="close"/>
         </el-dialog>
         <!--/个人中心设置dialog-->
 
@@ -67,16 +67,16 @@ export default {
         this.loadUserProfile()
     },
     methods: {
-        
+
         async loadUserProfile () {
             const { data } = await getUserProfile()
             this.userProfileInfo = data.data
         },
 
-       // 处理个人中心设置     
+       // 处理个人中心设置
        onProfileSetting () {
           this.userInfoVisible = true
-       },     
+       },
 
         onLogout () {
             this.$confirm('确认退出吗？', '退出提示', {
@@ -95,6 +95,9 @@ export default {
                     message: '已取消退出'
                 })
             })
+        },
+        close () {
+            this.userInfoVisible = false
         }
     }
 }

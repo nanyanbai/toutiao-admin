@@ -23,15 +23,16 @@
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="频道">
-                    <el-select v-model="channelId" placeholder="请选择频道" size="mini">
-                        <el-option label="全部" :value="null"></el-option>
-                        <el-option
-                         v-for="item in channels"
-                         :key="item.id"
-                         :label="item.name"
-                         :value="item.id"
-                        />
-                    </el-select>
+                    <my-channel v-model="channelId"/>
+<!--                    <el-select v-model="channelId" placeholder="请选择频道" size="mini">-->
+<!--                        <el-option label="全部" :value="null"></el-option>-->
+<!--                        <el-option-->
+<!--                         v-for="item in channels"-->
+<!--                         :key="item.id"-->
+<!--                         :label="item.name"-->
+<!--                         :value="item.id"-->
+<!--                        />-->
+<!--                    </el-select>-->
                 </el-form-item>
                 <el-form-item label="日期">
                     <el-date-picker
@@ -82,10 +83,10 @@
                 <el-table-column label="发布时间" prop="pubdate"></el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">
-                        <el-button 
-                         type="primary" 
-                         size="small" 
-                         icon="el-icon-edit" 
+                        <el-button
+                         type="primary"
+                         size="small"
+                         icon="el-icon-edit"
                          circle
                          @click="$router.push('/publish?id='+ scope.row.id)"
                         ></el-button>
@@ -117,9 +118,11 @@
 
 <script>
 import { getArticleList, deleteArticle, getArticleChannels } from '@/api/article'
+import MyChannel from "../../components/my-channel/index";
 
 export default {
     name: 'ArticleIndex',
+    components: {MyChannel},
     data () {
         return {
             page: 1, // 当前页码
@@ -136,13 +139,13 @@ export default {
             ],
             status: null, // 查询文章的状态，不传就是全部
             channelId: null, // 查询文章的频道
-            channels: [], // 文章频道列表
+            // channels: [], // 文章频道列表
             rangeDate: null // 筛选的范围日期
         }
     },
     created() {
         this.loadArticles()
-        this.loadChannels()
+        // this.loadChannels()
     },
     methods: {
         async loadArticles (page = 1) {
@@ -165,10 +168,10 @@ export default {
             }
         },
 
-        async loadChannels () {
-            const { data } = await getArticleChannels()
-            this.channels = data.data.channels
-        },
+        // async loadChannels () {
+        //     const { data } = await getArticleChannels()
+        //     this.channels = data.data.channels
+        // },
 
         /**
          * 根据文章id删除文章数据
