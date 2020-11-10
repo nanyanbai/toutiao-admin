@@ -27,6 +27,10 @@
             <i class="el-icon-chat-dot-round"></i>
             <span slot="title">评论管理</span>
         </el-menu-item>
+        <el-menu-item index="/fans">
+            <i class="iconfont icon-fans"></i>
+            <span slot="title">粉丝管理</span>
+        </el-menu-item>
     </el-menu>
 </template>
 

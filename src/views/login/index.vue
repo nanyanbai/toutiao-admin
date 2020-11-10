@@ -41,7 +41,7 @@ export default {
             user: {
                 mobile: '13911111111',
                 code: '246810',
-                agree: false // 是否同意协议
+                agree: true // 是否同意协议
             },
             loginLoading: false, // 登录的 loading 状态
             // 表单验证规则配置

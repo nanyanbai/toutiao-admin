@@ -41,6 +41,11 @@ export default {
                     path: '/comment',
                     name: 'comment',
                     component: () => import('@/views/comment/')
+                },
+                {
+                    path: '/fans',
+                    name: 'fans',
+                    component: () => import('@/views/fans/')
                 }
             ]
         }
