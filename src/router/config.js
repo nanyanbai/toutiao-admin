@@ -16,7 +16,7 @@ export default {
                     // 我们通常会把根路径 / 设置为网站的首页
                     // 为啥呢？因为我们在手动输入网址访问网站的时候，可以省略 /
                     // 如果你是别的名称，则必须加上
-                    path: '', // path 为空，会作为默认子路由渲染
+                    path: '/', // path 为空，会作为默认子路由渲染
                     // 路由的名字是干啥的？
                     // 参考：https://gitee.com/lipengzhou/toutiao-publish-admin/issues/I1F1BA
                     name: 'home',

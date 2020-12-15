@@ -6,7 +6,7 @@ import store from '@/store/'
 import JSONbig from 'json-bigint'
 
 const request = axios.create({
-    baseURL: "http://ttapi.research.itcast.cn/",   //基础路径
+    baseURL: "http://api-toutiao-web.itheima.net/",   //基础路径
     transformResponse: [function (data) {
         // 后端返回的数据可能不是 JSON 格式字符串
         // 如果不是的话，那么 JSONbig.parse 调用就会报错
@@ -33,13 +33,19 @@ request.interceptors.request.use(function (config) {
     if (user) {
         config.headers.Authorization = `Bearer ${user.token}`
     }
+    // this.NProgress.start()
     return config
 }, function (err) {
     return Promise.reject(err)
 })
 
 // 响应拦截器
-request.interceptors.response.use()
+request.interceptors.response.use(function (response) {
+  // this.NProgress.done()
+  return response
+}, function (err) {
+  return Promise.reject(err)
+})
 
 //导出请求方法
 export  default  request

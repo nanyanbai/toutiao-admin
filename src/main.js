@@ -11,6 +11,11 @@ import Echarts from 'echarts'
 // 导入字体图标
 import './assets/fonts/iconfont.css'
 
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
+Vue.prototype.NProgress = NProgress
+
 // 使用自己的插件
 import plugin from '@/plugin/'
 Vue.use(plugin)

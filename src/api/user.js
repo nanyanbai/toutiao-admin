@@ -12,6 +12,13 @@ export const login = data => {
     })
 }
 
+export const getCaptchas = params => {
+  return request({
+    method: 'GET',
+    url: `/mp/v1_0/captchas/${params}`
+  })
+}
+
 /**
  * 获取用户心信息
  */
